@@ -1,0 +1,8 @@
+target/
+.git/
+.github/
+.idea/
+*.log
+.env
+application-local.yml
+application-local.properties
