@@ -1,0 +1,46 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: bus-tracker-interface
+
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:bus_tracker}
+    username: ${DB_USER:bus_user}
+    password: ${DB_PASSWORD:bus_password}
+    pool:
+      enabled: true
+      initial-size: 2
+      max-size: 10
+
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:bus_tracker}
+    user: ${DB_USER:bus_user}
+    password: ${DB_PASSWORD:bus_password}
+    locations: classpath:db/migration
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  level:
+    com.reset.bustracker: DEBUG
+
+app:
+  security:
+    jwt:
+      issuer: ${JWT_ISSUER:bus-tracker-api}
+      audience: ${JWT_AUDIENCE:bus-tracker-mobile}
+      key-id: ${JWT_KEY_ID:bus-tracker-local}
+      secret-base64: ${JWT_SECRET_BASE64:VGhpcy1pcy1hLXN0cm9uZy1KV1Qtc2VjcmV0LWtleS1mb3ItYnVzLXRyYWNrZXItYXBwLTIwMjY=}
+      access-token-ttl: ${JWT_ACCESS_TOKEN_TTL:PT30M}

@@ -1,0 +1,27 @@
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: bus-tracker-postgres
+    environment:
+      POSTGRES_DB: bus_tracker
+      POSTGRES_USER: bus_user
+      POSTGRES_PASSWORD: bus_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bus_user -d bus_tracker"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: bus-tracker-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:

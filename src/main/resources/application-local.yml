@@ -1,0 +1,7 @@
+app:
+  bootstrap-admin:
+    enabled: true
+    username: admin
+    password: ChangeMe!123
+    full-name: Local Administrator
+    email: admin@local.bus-tracker
