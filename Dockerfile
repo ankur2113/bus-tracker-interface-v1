@@ -14,6 +14,8 @@ FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
+LABEL org.opencontainers.image.source="https://github.com/ankur2113/bus-tracker-interface-v1"
+
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080

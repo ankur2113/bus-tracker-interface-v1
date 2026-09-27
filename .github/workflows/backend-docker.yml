@@ -24,10 +24,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Docker image
-        run: |
-          docker build -t ghcr.io/ankur2113/bus-tracker-interface-v1:latest .
-
-      - name: Push Docker image
-        run: |
-          docker push ghcr.io/ankur2113/bus-tracker-interface-v1:latest
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/ankur2113/bus-tracker-interface-v1:latest
+            ghcr.io/ankur2113/bus-tracker-interface-v1:${{ github.sha }}
